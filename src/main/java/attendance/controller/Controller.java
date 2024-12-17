@@ -4,6 +4,7 @@ import static attendance.utils.DateUtils.getTodayDay;
 import static attendance.utils.DateUtils.getTodayDayOfWeek;
 import static attendance.utils.DateUtils.getTodayMonth;
 
+import attendance.domain.RedDay;
 import attendance.view.InputView;
 import attendance.view.OutputView;
 import java.util.Objects;
@@ -23,6 +24,7 @@ public class Controller {
             outputView.printTodayAndFunctions(getTodayMonth(), getTodayDay(), getTodayDayOfWeek());
             String function = inputView.inputFunction();
             if (Objects.equals(function, "1")) {
+                RedDay.isRedDay(getTodayDay());
                 inputView.inputNickNames();
                 inputView.inputAttendanceTime();
             } else if (Objects.equals(function, "2")) {
