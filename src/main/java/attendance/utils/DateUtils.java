@@ -18,6 +18,12 @@ public final class DateUtils {
         return dayOfWeek.getDisplayName(TextStyle.FULL, Locale.KOREAN);
     }
 
+    public static boolean checkDayOfWeekMonday(final LocalDateTime localDateTime) {
+        DayOfWeek dayOfWeek = localDateTime.getDayOfWeek();
+        String displayName = dayOfWeek.getDisplayName(TextStyle.FULL, Locale.KOREAN);
+        return displayName.equals("월요일");
+    }
+
     public static int getTodayMonth() {
         LocalDateTime now = getLocalDateTime();
         Month month = now.getMonth();

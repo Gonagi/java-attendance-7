@@ -17,8 +17,8 @@ public enum Messages {
     // error
     INVALID_INPUT_FORMAT("잘못된 형식을 입력하였습니다."),
     NO_EXIST_NICKNAME("등록되지 않은 닉네임입니다."),
-    INVALID_AT_RED_DAY("%d월 %02d일 %s은 등교일이 아닙니다.");
-
+    INVALID_AT_RED_DAY("%d월 %02d일 %s은 등교일이 아닙니다."),
+    INVALID_OPERATING_HOURS("[ERROR] 캠퍼스 운영 시간에만 출석이 가능합니다.");
     private final String message;
 
     Messages(final String message) {
