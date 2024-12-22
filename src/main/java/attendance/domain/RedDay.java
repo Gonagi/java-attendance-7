@@ -1,6 +1,6 @@
 package attendance.domain;
 
-import static attendance.config.Constants.DECEMBER;
+import static attendance.constants.Constants.DECEMBER;
 import static attendance.constants.Messages.INVALID_AT_RED_DAY;
 import static attendance.utils.DateUtils.getTodayDayOfWeek;
 
