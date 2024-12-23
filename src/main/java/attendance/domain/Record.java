@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,6 +56,7 @@ public class Record {
                 attendanceStatuses.add(attendanceStatus);
             }
         }
+        attendanceStatuses.sort(Comparator.comparingInt(AttendanceStatus::getDay));
     }
 
     private boolean checkAttendanceStatusByDay(final int day) {
