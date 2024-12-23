@@ -45,7 +45,7 @@ public class InputView {
         System.out.println(INPUT_CHANGE_DAY.getMessage());
         String day = Console.readLine();
         validateNull(day);
-        validateDay();
+        validateDay(day);
         return Integer.parseInt(day);
     }
 
