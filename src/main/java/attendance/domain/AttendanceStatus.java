@@ -1,7 +1,5 @@
 package attendance.domain;
 
-import static attendance.constants.Messages.INVALID_OPERATING_HOURS;
-
 import attendance.utils.DateUtils;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -25,18 +23,11 @@ public class AttendanceStatus {
         RedDay.isRedDay(localDateTime.getDayOfMonth());
         int hour = localDateTime.getHour();
         int minute = localDateTime.getMinute();
-        checkOperatingHours(hour);
 
         if (DateUtils.checkDayOfWeekMonday(localDateTime)) {
             return new AttendanceStatus(createAttendanceStatusAtMonday(hour, minute), localDateTime);
         }
         return new AttendanceStatus(createAttendanceStatusWithoutMonday(hour, minute), localDateTime);
-    }
-
-    private static void checkOperatingHours(final int hour) {
-        if (hour < 8 || hour >= 23) {
-            throw new IllegalArgumentException(INVALID_OPERATING_HOURS.getErrorMessage());
-        }
     }
 
     private static String createAttendanceStatusAtMonday(final int hour, final int minute) {
