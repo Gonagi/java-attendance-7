@@ -2,13 +2,20 @@ package attendance.utils;
 
 import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
 public final class DateUtils {
     private DateUtils() {
+    }
+
+    public static LocalDateTime getLocalDateTime(final int day, final LocalTime localTime) {
+        LocalDate localDate = LocalDate.of(2024, 12, day);
+        return LocalDateTime.of(localDate, localTime);
     }
 
     public static String getTodayDayOfWeek() {
