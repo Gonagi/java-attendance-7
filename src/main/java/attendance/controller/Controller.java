@@ -32,8 +32,8 @@ public class Controller {
             if (Objects.equals(function, "1")) {
                 RedDay.isRedDay(getTodayDay());
                 String nickName = inputView.inputNickNames();
-                LocalTime time = inputView.inputAttendanceTime();
                 Record record = recordBook.findRecordByNickNameAtRecordBook(nickName);
+                LocalTime time = inputView.inputAttendanceTime();
                 LocalDateTime localDateTime = getLocalDateTime(getTodayDay(), time);
                 record.registerAttendance(localDateTime);
                 outputView.printConfirmAttendance(record.getAttendanceStatusByDay(getTodayDay()));
