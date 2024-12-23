@@ -1,13 +1,17 @@
 package attendance.controller;
 
+import static attendance.utils.DateUtils.getLocalDateTime;
 import static attendance.utils.DateUtils.getTodayDay;
 import static attendance.utils.DateUtils.getTodayDayOfWeek;
 import static attendance.utils.DateUtils.getTodayMonth;
 
+import attendance.domain.Record;
 import attendance.domain.RecordBook;
 import attendance.domain.RedDay;
 import attendance.view.InputView;
 import attendance.view.OutputView;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
 
 public class Controller {
@@ -22,14 +26,17 @@ public class Controller {
     }
 
     public void run() {
-
         while (true) {
             outputView.printTodayAndFunctions(getTodayMonth(), getTodayDay(), getTodayDayOfWeek());
             String function = inputView.inputFunction();
             if (Objects.equals(function, "1")) {
                 RedDay.isRedDay(getTodayDay());
-                inputView.inputNickNames();
-                inputView.inputAttendanceTime();
+                String nickName = inputView.inputNickNames();
+                LocalTime time = inputView.inputAttendanceTime();
+                Record record = recordBook.findRecordByNickNameAtRecordBook(nickName);
+                LocalDateTime localDateTime = getLocalDateTime(getTodayDay(), time);
+                record.registerAttendance(localDateTime);
+                outputView.printConfirmAttendance(record.getAttendanceStatusByDay(getTodayDay()));
             } else if (Objects.equals(function, "2")) {
 
             } else if (Objects.equals(function, "3")) {
