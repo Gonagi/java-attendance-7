@@ -3,7 +3,9 @@ package attendance.domain;
 import static attendance.constants.Messages.DUPLICATE_ATTENDANCE;
 import static attendance.constants.Messages.INVALID_INPUT_FORMAT;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +34,15 @@ public class Record {
                 .filter(attendanceStatus -> Objects.equals(attendanceStatus.getDay(), day))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(INVALID_INPUT_FORMAT.getErrorMessage()));
+    }
+
+    public AttendanceStatus changeAttendanceStatusWithDayAndTime(final int day, final LocalTime localTime) {
+        AttendanceStatus oldAttendanceStatus = getAttendanceStatusByDay(day);
+        attendanceStatuses.remove(oldAttendanceStatus);
+        AttendanceStatus newAttendanceStatus = AttendanceStatus.from(
+                LocalDateTime.of(LocalDate.of(2024, 12, day), localTime));
+        attendanceStatuses.add(newAttendanceStatus);
+        return newAttendanceStatus;
     }
 
     private void checkDuplicateAttendanceStatus(final int day) {

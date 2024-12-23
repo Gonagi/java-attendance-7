@@ -1,6 +1,8 @@
 package attendance.view;
 
 import static attendance.constants.Messages.INPUT_ATTENDANCE_TIME;
+import static attendance.constants.Messages.INPUT_CHANGE_DAY;
+import static attendance.constants.Messages.INPUT_CHANGE_TIME;
 import static attendance.constants.Messages.INPUT_NICKNAME;
 import static attendance.constants.Messages.INVALID_INPUT_FORMAT;
 import static attendance.constants.Messages.INVALID_OPERATING_HOURS;
@@ -14,6 +16,7 @@ import java.util.regex.Pattern;
 public class InputView {
     private static final String ANSWER_REGEX = "[1234Q]";
     private static final String TIME_REGEX = "\\d{2}:\\d{2}";
+    private static final String NUMBER_REGEX = "\\d+";
     private static final String NICKNAME_REGEX = "([ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+,)*[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+";
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
     private static final String TIME_SPLIT = ":";
@@ -34,17 +37,31 @@ public class InputView {
     public LocalTime inputAttendanceTime() {
         System.out.println(INPUT_ATTENDANCE_TIME.getMessage());
         String attendanceTime = Console.readLine();
-        validateAttendanceTime(attendanceTime);
+        validateTime(attendanceTime);
         return LocalTime.parse(attendanceTime, TIME_FORMATTER);
     }
 
+    public int inputDay() {
+        System.out.println(INPUT_CHANGE_DAY.getMessage());
+        String day = Console.readLine();
+        validateNull(day);
+        validateDay();
+        return Integer.parseInt(day);
+    }
+
+    public LocalTime inputChangeTime() {
+        System.out.println(INPUT_CHANGE_TIME.getMessage());
+        String changeTime = Console.readLine();
+        validateTime(changeTime);
+        return LocalTime.parse(changeTime, TIME_FORMATTER);
+    }
 
     private void validateNickNames(final String input) {
         validateNull(input);
         validateTimePattern(NICKNAME_REGEX, input);
     }
 
-    private void validateAttendanceTime(final String input) {
+    private void validateTime(final String input) {
         validateNull(input);
         validateTimePattern(TIME_REGEX, input);
         validateTimeRange(input);
@@ -65,6 +82,17 @@ public class InputView {
             throw new IllegalArgumentException(INVALID_OPERATING_HOURS.getErrorMessage());
         }
         if (hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+            throw new IllegalArgumentException(INVALID_INPUT_FORMAT.getErrorMessage());
+        }
+    }
+
+    private void validateDay(final String day) {
+        validateNull(day);
+        validateNumberFormat(day);
+    }
+
+    private void validateNumberFormat(final String day) {
+        if (!Pattern.matches(NUMBER_REGEX, day)) {
             throw new IllegalArgumentException(INVALID_INPUT_FORMAT.getErrorMessage());
         }
     }

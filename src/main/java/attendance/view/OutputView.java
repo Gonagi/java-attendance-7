@@ -1,5 +1,6 @@
 package attendance.view;
 
+import static attendance.constants.Messages.CHANGE_ATTENDANCE_STATUS;
 import static attendance.constants.Messages.CONFIRM_ATTENDANCE;
 import static attendance.constants.Messages.TODAY_AND_FUNCTIONS;
 
@@ -14,5 +15,13 @@ public class OutputView {
     public void printConfirmAttendance(final AttendanceStatus attendanceStatus) {
         System.out.printf(CONFIRM_ATTENDANCE.getMessage(), attendanceStatus.getMonth(), attendanceStatus.getDay(),
                 attendanceStatus.getDayOfWeek(), attendanceStatus.getTime(), attendanceStatus.getStatus());
+    }
+
+    public void printChangeAttendance(final AttendanceStatus oldAttendanceStatus,
+                                      final AttendanceStatus newAttendanceStatus) {
+        System.out.printf(CHANGE_ATTENDANCE_STATUS.getMessage(), oldAttendanceStatus.getMonth(),
+                oldAttendanceStatus.getDay(),
+                oldAttendanceStatus.getDayOfWeek(), oldAttendanceStatus.getTime(), oldAttendanceStatus.getStatus(),
+                newAttendanceStatus.getTime(), newAttendanceStatus.getStatus());
     }
 }

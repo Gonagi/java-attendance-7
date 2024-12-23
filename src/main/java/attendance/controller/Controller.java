@@ -5,6 +5,7 @@ import static attendance.utils.DateUtils.getTodayDay;
 import static attendance.utils.DateUtils.getTodayDayOfWeek;
 import static attendance.utils.DateUtils.getTodayMonth;
 
+import attendance.domain.AttendanceStatus;
 import attendance.domain.Record;
 import attendance.domain.RecordBook;
 import attendance.domain.RedDay;
@@ -38,7 +39,13 @@ public class Controller {
                 record.registerAttendance(localDateTime);
                 outputView.printConfirmAttendance(record.getAttendanceStatusByDay(getTodayDay()));
             } else if (Objects.equals(function, "2")) {
-
+                String nickName = inputView.inputNickNames();
+                Record record = recordBook.findRecordByNickNameAtRecordBook(nickName);
+                int day = inputView.inputDay();
+                AttendanceStatus oldAttendanceStatus = record.getAttendanceStatusByDay(day);
+                LocalTime time = inputView.inputChangeTime();
+                AttendanceStatus newAttendanceStatus = record.changeAttendanceStatusWithDayAndTime(day, time);
+                outputView.printChangeAttendance(oldAttendanceStatus, newAttendanceStatus);
             } else if (Objects.equals(function, "3")) {
 
             } else if (Objects.equals(function, "4")) {
