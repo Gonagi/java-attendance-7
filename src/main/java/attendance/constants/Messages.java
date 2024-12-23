@@ -18,8 +18,8 @@ public enum Messages {
     INVALID_INPUT_FORMAT("잘못된 형식을 입력하였습니다."),
     NO_EXIST_NICKNAME("등록되지 않은 닉네임입니다."),
     INVALID_AT_RED_DAY("%d월 %02d일 %s은 등교일이 아닙니다."),
-    INVALID_OPERATING_HOURS("[ERROR] 캠퍼스 운영 시간에만 출석이 가능합니다."),
-    DUPLICATE_ATTENDANCE("[ERROR] 이미 출석을 확인하였습니다. 필요한 경우 수정 기능을 이용해주세요."),
+    INVALID_OPERATING_HOURS("캠퍼스 운영 시간에만 출석이 가능합니다."),
+    DUPLICATE_ATTENDANCE("이미 출석을 확인하였습니다. 필요한 경우 수정 기능을 이용해주세요."),
     INVALID_FILE_PATH("파일 경로에 오류가 있습니다");
 
     private final String message;
