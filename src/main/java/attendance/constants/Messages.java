@@ -25,7 +25,8 @@ public enum Messages {
     WARNING_PERSON("경고 대상자입니다."),
     INTERVIEWEE("면담 대상자입니다."),
     EXPELLED_PERSON("제적 대상자입니다."),
-
+    RISK_AT_EXPELLED_PERSON("제적 위험자 조회 결과"),
+    RISK_AT_EXPELLED_PERSON_DETAIL("- %s: 결석 %d회, 지각 %d회 (%s)\n"),
     // error
     INVALID_INPUT_FORMAT("잘못된 형식을 입력하였습니다."),
     NO_EXIST_NICKNAME("등록되지 않은 닉네임입니다."),

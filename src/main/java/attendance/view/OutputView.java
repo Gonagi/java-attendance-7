@@ -8,11 +8,14 @@ import static attendance.constants.Messages.CHANGE_ATTENDANCE_STATUS;
 import static attendance.constants.Messages.CONFIRM_ATTENDANCE;
 import static attendance.constants.Messages.EXPELLED_PERSON;
 import static attendance.constants.Messages.INTERVIEWEE;
+import static attendance.constants.Messages.RISK_AT_EXPELLED_PERSON;
+import static attendance.constants.Messages.RISK_AT_EXPELLED_PERSON_DETAIL;
 import static attendance.constants.Messages.TODAY_AND_FUNCTIONS;
 import static attendance.constants.Messages.WARNING_PERSON;
 
 import attendance.domain.AttendanceStatus;
 import attendance.domain.Record;
+import java.util.List;
 import java.util.Objects;
 
 public class OutputView {
@@ -24,6 +27,7 @@ public class OutputView {
     public void printConfirmAttendance(final AttendanceStatus attendanceStatus) {
         System.out.printf(CONFIRM_ATTENDANCE.getMessage(), attendanceStatus.getMonth(), attendanceStatus.getDay(),
                 attendanceStatus.getDayOfWeek(), attendanceStatus.getTime(), attendanceStatus.getStatus());
+        System.out.println();
     }
 
     public void printChangeAttendance(final AttendanceStatus oldAttendanceStatus,
@@ -32,6 +36,7 @@ public class OutputView {
                 oldAttendanceStatus.getDay(),
                 oldAttendanceStatus.getDayOfWeek(), oldAttendanceStatus.getTime(), oldAttendanceStatus.getStatus(),
                 newAttendanceStatus.getTime(), newAttendanceStatus.getStatus());
+        System.out.println();
     }
 
     public void printAttendanceStatusByNickName(final Record record) {
@@ -51,6 +56,16 @@ public class OutputView {
                 record.getAbsentCount());
         System.out.println();
         printInterviewee(record);
+        System.out.println();
+    }
+
+    public void printExpelledPeople(final List<Record> expelledPeople) {
+        System.out.println(RISK_AT_EXPELLED_PERSON.getMessage());
+        for (Record record : expelledPeople) {
+            System.out.printf(RISK_AT_EXPELLED_PERSON_DETAIL.getMessage(), record.getNickName(),
+                    record.getRealAbsentCount(), record.getRealLateCount(), record.getExpelledStatus());
+        }
+        System.out.println();
     }
 
     private void printInterviewee(final Record record) {

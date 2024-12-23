@@ -13,6 +13,7 @@ import attendance.view.InputView;
 import attendance.view.OutputView;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Objects;
 
 public class Controller {
@@ -51,7 +52,8 @@ public class Controller {
                 Record record = recordBook.findRecordByNickNameAtRecordBook(nickName);
                 outputView.printAttendanceStatusByNickName(record);
             } else if (Objects.equals(function, "4")) {
-
+                List<Record> riskAtExpulsionPeople = recordBook.findRiskAtExpulsionPeople();
+                outputView.printExpelledPeople(riskAtExpulsionPeople);
             } else if (Objects.equals(function, "Q")) {
                 break;
             }

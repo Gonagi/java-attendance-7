@@ -65,16 +65,35 @@ public class Record {
                 .count();
     }
 
-    public int getLateCount() {
+    public int getRealLateCount() {
         return (int) attendanceStatuses.stream()
                 .filter(attendanceStatus -> Objects.equals(attendanceStatus.getStatus(), "지각"))
                 .count();
     }
 
-    public int getAbsentCount() {
+    public int getRealAbsentCount() {
         return (int) attendanceStatuses.stream()
                 .filter(attendanceStatus -> Objects.equals(attendanceStatus.getStatus(), "결석"))
                 .count();
+    }
+
+    public int getLateCount() {
+        return getRealLateCount() % 3;
+    }
+
+    public int getAbsentCount() {
+        int lateCount = getRealLateCount();
+        int absentCount = getRealAbsentCount();
+        return absentCount + lateCount / 3;
+    }
+
+    public String getExpelledStatus() {
+        if (getAbsentCount() > 5) {
+            return "제적";
+        } else if (getAbsentCount() >= 3) {
+            return "면담";
+        }
+        return "경고";
     }
 
     private boolean checkAttendanceStatusByDay(final int day) {

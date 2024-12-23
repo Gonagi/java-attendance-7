@@ -7,6 +7,8 @@ import attendance.utils.FileUtils;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -67,6 +69,16 @@ public class RecordBook {
                 .filter(record -> Objects.equals(record.getNickName(), nickName))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(NO_EXIST_NICKNAME.getErrorMessage()));
+    }
+
+    public List<Record> findRiskAtExpulsionPeople() {
+        List<Record> expulsionPeople = new ArrayList<>(records.stream()
+                .filter(record -> record.getAbsentCount() >= 2)
+                .toList());
+        expulsionPeople.sort(Comparator.comparing(Record::getAbsentCount, Comparator.reverseOrder())
+                .thenComparing(Record::getLateCount, Comparator.reverseOrder()));
+
+        return expulsionPeople;
     }
 }
 
