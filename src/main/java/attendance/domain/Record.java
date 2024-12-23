@@ -2,6 +2,7 @@ package attendance.domain;
 
 import static attendance.constants.Messages.DUPLICATE_ATTENDANCE;
 import static attendance.constants.Messages.INVALID_INPUT_FORMAT;
+import static attendance.utils.DateUtils.getTodayDay;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -45,6 +46,22 @@ public class Record {
         return newAttendanceStatus;
     }
 
+    public void registerMissingAttendanceStatus() {
+        for (int day = 1; day <= getTodayDay() - 1; day++) {
+            if (!RedDay.checkRedDay(day) && !checkAttendanceStatusByDay(day)) {
+                LocalDate localDate = LocalDate.of(2024, 12, day);
+                LocalTime fakeTime = LocalTime.of(0, 0);
+                AttendanceStatus attendanceStatus = AttendanceStatus.from(LocalDateTime.of(localDate, fakeTime));
+                attendanceStatuses.add(attendanceStatus);
+            }
+        }
+    }
+
+    private boolean checkAttendanceStatusByDay(final int day) {
+        return attendanceStatuses.stream()
+                .anyMatch(attendanceStatus -> Objects.equals(attendanceStatus.getDay(), day));
+    }
+
     private void checkDuplicateAttendanceStatus(final int day) {
         attendanceStatuses.stream()
                 .filter(attendanceStatus -> Objects.equals(attendanceStatus.getDay(), day))
@@ -60,5 +77,22 @@ public class Record {
 
     public List<AttendanceStatus> getAttendanceStatuses() {
         return attendanceStatuses;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Record record = (Record) o;
+        return Objects.equals(nickName, record.nickName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nickName);
     }
 }

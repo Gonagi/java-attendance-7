@@ -31,23 +31,23 @@ public class AttendanceStatus {
     }
 
     private static String createAttendanceStatusAtMonday(final int hour, final int minute) {
-        if (hour == 13 && (minute > 5 && minute <= 30)) {
+        if ((hour == 13 && minute <= 5) || (hour >= 8 && hour <= 12)) {
+            return SAFE;
+        }
+        if (hour == 13 && minute <= 30) {
             return LATE;
         }
-        if ((hour == 13 && minute > 30) || hour >= 14) {
-            return ABSENCE;
-        }
-        return SAFE;
+        return ABSENCE;
     }
 
     private static String createAttendanceStatusWithoutMonday(final int hour, final int minute) {
-        if (hour == 10 && (minute > 5 && minute <= 30)) {
+        if ((hour == 10 && minute <= 5) || (hour >= 8 && hour <= 9)) {
+            return SAFE;
+        }
+        if (hour == 10 && minute <= 30) {
             return LATE;
         }
-        if ((hour == 10 && minute > 30) || hour >= 11) {
-            return ABSENCE;
-        }
-        return SAFE;
+        return ABSENCE;
     }
 
     public int getMonth() {

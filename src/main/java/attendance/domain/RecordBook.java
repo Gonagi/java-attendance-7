@@ -26,6 +26,7 @@ public class RecordBook {
         info.removeFirst();
         registerNickName(records, info);
         registerAttendanceStatus(records, info);
+        registerMissingAttendanceStatus(records);
         return new RecordBook(records);
     }
 
@@ -53,6 +54,12 @@ public class RecordBook {
                 .filter(record -> Objects.equals(record.getNickName(), nickName))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(NO_EXIST_NICKNAME.getErrorMessage()));
+    }
+
+    private static void registerMissingAttendanceStatus(final Set<Record> records) {
+        for (Record record : records) {
+            record.registerMissingAttendanceStatus();
+        }
     }
 
     public Record findRecordByNickNameAtRecordBook(final String nickName) {

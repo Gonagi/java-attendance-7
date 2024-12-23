@@ -40,6 +40,10 @@ public enum RedDay {
         }
     }
 
+    public static boolean checkRedDay(final int day) {
+        return RED_DAYS.contains(day);
+    }
+
     public int getRedDay() {
         return day;
     }
