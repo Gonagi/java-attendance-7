@@ -16,6 +16,15 @@ public enum Messages {
             + "Q. 종료\n"),
     CONFIRM_ATTENDANCE("%d월 %02d일 %s %s (%s)\n"),
     CHANGE_ATTENDANCE_STATUS("%d월 %02d일 %s %s (%s) -> %s (%s) 수정 완료!\n"),
+    ATTENDANCE_STATUS_BY_NICKNAME("\n이번 달 %s의 출석 기록입니다.\n"),
+    ATTENDANCE_STATUS_WITH_SAFE_OR_LATE("%d월 %02d일 %s %s (%s)\n"),
+    ATTENDANCE_STATUS_WITH_ABSENT("%d월 %02d일 %s --:-- (%s)\n"),
+    ATTENDANCE_STATUS_COUNT("출석: %d회\n"
+            + "지각: %d회\n"
+            + "결석: %d회\n"),
+    WARNING_PERSON("경고 대상자입니다."),
+    INTERVIEWEE("면담 대상자입니다."),
+    EXPELLED_PERSON("제적 대상자입니다."),
 
     // error
     INVALID_INPUT_FORMAT("잘못된 형식을 입력하였습니다."),

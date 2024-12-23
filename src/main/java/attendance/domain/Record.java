@@ -59,6 +59,24 @@ public class Record {
         attendanceStatuses.sort(Comparator.comparingInt(AttendanceStatus::getDay));
     }
 
+    public int getSafeCount() {
+        return (int) attendanceStatuses.stream()
+                .filter(attendanceStatus -> Objects.equals(attendanceStatus.getStatus(), "출석"))
+                .count();
+    }
+
+    public int getLateCount() {
+        return (int) attendanceStatuses.stream()
+                .filter(attendanceStatus -> Objects.equals(attendanceStatus.getStatus(), "지각"))
+                .count();
+    }
+
+    public int getAbsentCount() {
+        return (int) attendanceStatuses.stream()
+                .filter(attendanceStatus -> Objects.equals(attendanceStatus.getStatus(), "결석"))
+                .count();
+    }
+
     private boolean checkAttendanceStatusByDay(final int day) {
         return attendanceStatuses.stream()
                 .anyMatch(attendanceStatus -> Objects.equals(attendanceStatus.getDay(), day));

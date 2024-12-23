@@ -47,7 +47,9 @@ public class Controller {
                 AttendanceStatus newAttendanceStatus = record.changeAttendanceStatusWithDayAndTime(day, time);
                 outputView.printChangeAttendance(oldAttendanceStatus, newAttendanceStatus);
             } else if (Objects.equals(function, "3")) {
-
+                String nickName = inputView.inputNickNames();
+                Record record = recordBook.findRecordByNickNameAtRecordBook(nickName);
+                outputView.printAttendanceStatusByNickName(record);
             } else if (Objects.equals(function, "4")) {
 
             } else if (Objects.equals(function, "Q")) {
