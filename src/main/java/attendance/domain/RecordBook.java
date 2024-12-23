@@ -48,8 +48,14 @@ public class RecordBook {
         }
     }
 
-
     private static Record findRecordByNickName(final Set<Record> records, final String nickName) {
+        return records.stream()
+                .filter(record -> Objects.equals(record.getNickName(), nickName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(NO_EXIST_NICKNAME.getErrorMessage()));
+    }
+
+    public Record findRecordByNickNameAtRecordBook(final String nickName) {
         return records.stream()
                 .filter(record -> Objects.equals(record.getNickName(), nickName))
                 .findFirst()
