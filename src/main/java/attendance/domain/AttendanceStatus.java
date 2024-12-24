@@ -1,5 +1,10 @@
 package attendance.domain;
 
+import static attendance.constants.Constants.ABSENCE;
+import static attendance.constants.Constants.DECEMBER;
+import static attendance.constants.Constants.LATE;
+import static attendance.constants.Constants.SAFE;
+
 import attendance.utils.DateUtils;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -7,10 +12,6 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 public class AttendanceStatus {
-    private static final String SAFE = "출석";
-    private static final String LATE = "지각";
-    private static final String ABSENCE = "결석";
-
     private final String status;
     private final LocalDateTime localDateTime;
 
@@ -51,7 +52,7 @@ public class AttendanceStatus {
     }
 
     public int getMonth() {
-        return 12;
+        return DECEMBER;
     }
 
     public int getDay() {

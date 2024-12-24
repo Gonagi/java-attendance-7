@@ -1,10 +1,12 @@
 package attendance.domain;
 
+import static attendance.constants.Constants.LATE;
+import static attendance.constants.Constants.SAFE;
 import static attendance.constants.Messages.DUPLICATE_ATTENDANCE;
 import static attendance.constants.Messages.INVALID_INPUT_FORMAT;
+import static attendance.utils.DateUtils.getLocalDateTime;
 import static attendance.utils.DateUtils.getTodayDay;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -41,8 +43,7 @@ public class Record {
     public AttendanceStatus changeAttendanceStatusWithDayAndTime(final int day, final LocalTime localTime) {
         AttendanceStatus oldAttendanceStatus = getAttendanceStatusByDay(day);
         attendanceStatuses.remove(oldAttendanceStatus);
-        AttendanceStatus newAttendanceStatus = AttendanceStatus.from(
-                LocalDateTime.of(LocalDate.of(2024, 12, day), localTime));
+        AttendanceStatus newAttendanceStatus = AttendanceStatus.from(getLocalDateTime(day, localTime));
         attendanceStatuses.add(newAttendanceStatus);
         return newAttendanceStatus;
     }
@@ -50,9 +51,8 @@ public class Record {
     public void registerMissingAttendanceStatus() {
         for (int day = 1; day <= getTodayDay() - 1; day++) {
             if (!RedDay.checkRedDay(day) && !checkAttendanceStatusByDay(day)) {
-                LocalDate localDate = LocalDate.of(2024, 12, day);
                 LocalTime fakeTime = LocalTime.of(0, 0);
-                AttendanceStatus attendanceStatus = AttendanceStatus.from(LocalDateTime.of(localDate, fakeTime));
+                AttendanceStatus attendanceStatus = AttendanceStatus.from(getLocalDateTime(day, fakeTime));
                 attendanceStatuses.add(attendanceStatus);
             }
         }
@@ -61,13 +61,13 @@ public class Record {
 
     public int getSafeCount() {
         return (int) attendanceStatuses.stream()
-                .filter(attendanceStatus -> Objects.equals(attendanceStatus.getStatus(), "출석"))
+                .filter(attendanceStatus -> Objects.equals(attendanceStatus.getStatus(), SAFE))
                 .count();
     }
 
     public int getRealLateCount() {
         return (int) attendanceStatuses.stream()
-                .filter(attendanceStatus -> Objects.equals(attendanceStatus.getStatus(), "지각"))
+                .filter(attendanceStatus -> Objects.equals(attendanceStatus.getStatus(), LATE))
                 .count();
     }
 

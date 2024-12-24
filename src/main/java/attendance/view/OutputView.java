@@ -33,9 +33,8 @@ public class OutputView {
     public void printChangeAttendance(final AttendanceStatus oldAttendanceStatus,
                                       final AttendanceStatus newAttendanceStatus) {
         System.out.printf(CHANGE_ATTENDANCE_STATUS.getMessage(), oldAttendanceStatus.getMonth(),
-                oldAttendanceStatus.getDay(),
-                oldAttendanceStatus.getDayOfWeek(), oldAttendanceStatus.getTime(), oldAttendanceStatus.getStatus(),
-                newAttendanceStatus.getTime(), newAttendanceStatus.getStatus());
+                oldAttendanceStatus.getDay(), oldAttendanceStatus.getDayOfWeek(), oldAttendanceStatus.getTime(),
+                oldAttendanceStatus.getStatus(), newAttendanceStatus.getTime(), newAttendanceStatus.getStatus());
         System.out.println();
     }
 

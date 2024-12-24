@@ -1,5 +1,7 @@
 package attendance.utils;
 
+import static java.time.Month.DECEMBER;
+
 import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -14,7 +16,7 @@ public final class DateUtils {
     }
 
     public static LocalDateTime getLocalDateTime(final int day, final LocalTime localTime) {
-        LocalDate localDate = LocalDate.of(2024, 12, day);
+        LocalDate localDate = LocalDate.of(2024, DECEMBER, day);
         return LocalDateTime.of(localDate, localTime);
     }
 
